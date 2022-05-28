@@ -1,7 +1,8 @@
 import mysql.connector
 import os
 
-def db_connection():
+# Database connection
+def my_function():
     connection = mysql.connector.connect(host='localhost',
                                          database='BOOKS1',
                                          user='root',
@@ -33,7 +34,7 @@ def db_connection():
     x.close()
 
 
-db_connection()
+my_function()
 
 
 

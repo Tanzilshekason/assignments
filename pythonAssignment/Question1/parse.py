@@ -1,6 +1,7 @@
 import csv
 import pymysql
 
+# Parse a csv file 
 filename = "Delimeter1.csv"
 fields = []
 rows = []
@@ -11,14 +12,15 @@ with open(filename, 'r') as csvfile:
     for row in csvreader:
         rows.append(row)
     print("Total no. of rows: %d"%(csvreader.line_num))
-    print('Field names are:' + ', '.join(field for field in fields))
+    print('Field names are:' + ','.join(field for field in fields))
     print('\n The rows are:\n')
     for row in rows[:100]:
         for col in row:
             print("%10s"%col,end=" "),
         print('\n')
 
-def db_connection(query):
+# Insert the data of csv file into the database
+def my_function(query):
     
     conn = pymysql.connect(
         host='localhost',
@@ -42,7 +44,7 @@ def db_connection(query):
                 format(row[0], row[1], row[2], row[3], row[4], row[5])'''
                 print(query)
 
-            db_connection(query)
+            my_function(query)
 
 
 

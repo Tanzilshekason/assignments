@@ -2,8 +2,9 @@ from fpdf import FPDF
 import csv
 import pymysql
 
-def simple_table(spacing=1):
-    
+# creating a pdf 
+def my_function(spacing=1):
+        
     header = 'EMPLOY TABLE'
     data = [['id', 'Firstname','Last Name', 'Gender', 'Salary','DOB'],
             ['1', 'John', 'Cena', 'Male','25000','2000-01-02'],
@@ -26,14 +27,14 @@ def simple_table(spacing=1):
                      txt=item, border=1)
         pdf.ln(row_height*spacing)
         
-    pdf.output('Table.pdf')
+    pdf.output('EmployData.pdf')
     
 if __name__ == '__main__':
-    simple_table()
+    my_function()
 
 
-
-def db_connection(query):
+# show the csv data into table format
+def my_function1(query):
     
     conn = pymysql.connect(
         host='localhost',
@@ -57,7 +58,7 @@ def db_connection(query):
                 format(row[0], row[1], row[2], row[3], row[4], row[5]) '''
                 print(query)
 
-            db_connection(query)
+            my_function(query)
 
    
 

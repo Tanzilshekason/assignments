@@ -2,7 +2,8 @@ from fpdf import FPDF
 import csv
 import psycopg2
 
-def simple_table(spacing=1):
+# creating a pdf 
+def my_function(spacing=1):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font('helvetica',size=20)
@@ -33,14 +34,14 @@ def simple_table(spacing=1):
                      txt=item, border=1)
         pdf.ln(row_height*spacing)
         
-    pdf.output('Table1.pdf')
+    pdf.output('EmployData1.pdf')
     
 if __name__ == '__main__':
-    simple_table()
+    my_function()
 
 
-
-def db_connection(query):
+# show the csv data into table format
+def my_function1(query):
     
     conn = psycopg2.connect(
         host='localhost',
@@ -64,7 +65,7 @@ def db_connection(query):
                     format(row[0], row[1], row[2], row[3], row[4], row[5]) '''
                 print(query)
 
-            db_connection(query)
+            my_function1(query)
 
    
 

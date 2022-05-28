@@ -1,6 +1,7 @@
 import csv
 import psycopg2
 
+# Parse a csv file
 filename = "Delimeter1.csv"
 fields = []
 rows = []
@@ -18,7 +19,8 @@ with open(filename, 'r') as csvfile:
             print("%10s"%col,end=" "),
         print('\n')
 
-def db_connection(query):
+# Insert the data of csv file into the database
+def my_function(query):
     
     conn = psycopg2.connect(
         host='localhost',
@@ -41,7 +43,7 @@ def db_connection(query):
                 query = "INSERT INTO employ(id,Firstname,Lastname,Gender,Salary,DOB) VALUES  ({},'{}','{}','{}',{},'{}')".format(row[0], row[1], row[2], row[3], row[4], row[5])
                 print(query)
 
-    db_connection(query)
+    my_function(query)
 
 
 

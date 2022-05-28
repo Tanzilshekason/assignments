@@ -1,6 +1,7 @@
 import mysql.connector
 
-def db_connection():
+#  Database Connection
+def my_function():
     mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
@@ -24,7 +25,9 @@ def db_connection():
 
 
     # For Table employ
-    mycursor.execute("CREATE TABLE Employ(Id INT,emp_Name Varchar(255),emp_bookname VARCHAR(255),book_category VARCHAR(255))")
+    mycursor.execute('''CREATE TABLE Employ(Id INT,
+    emp_Name Varchar(255),emp_bookname VARCHAR(255),
+    book_category VARCHAR(255))''')
     query = "INSERT INTO Employ(Id,emp_Name,emp_bookname,book_category) VALUES(%s,%s,%s,%s)"
     b1 = (1,'David','Life Of Pie','Action And Adventure')
     b2 = (2,'Tim','The Call Of The Wild','Action And Adventure')
@@ -54,7 +57,9 @@ def db_connection():
 
 
     # For Table Category student
-    mycursor.execute("CREATE TABLE student(Id INT,stu_Name VARCHAR(255),stu_bookname VARCHAR(255),category VARCHAR(255))")
+    mycursor.execute('''CREATE TABLE student(Id INT,
+    stu_Name VARCHAR(255),stu_bookname VARCHAR(255),
+    category VARCHAR(255))''')
     query = "INSERT INTO student(Id,stu_Name,stu_bookname,category) VALUES(%s,%s,%s,%s)"
     b1 = (1,'Ponting','Heart Of Darkness','Action And Adventure')
     b2 = (2,'Ellyse','Tarzan Of The Apes','Action And Adventure')
@@ -81,4 +86,4 @@ def db_connection():
     for db in mycursor:
         print(db)
     
-db_connection()
+my_function()

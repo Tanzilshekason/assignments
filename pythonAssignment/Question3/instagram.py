@@ -9,7 +9,8 @@ import wget
 import csv
 import pymysql
 
-def func():
+# Parsing instagram website
+def my_function():
     driver =webdriver.Chrome('/home/neosoft/Documents/chromedriver_linux64/chromedriver')
     driver.get("https://www.instagram.com/")
     username = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,"input[name='username']")))
@@ -49,10 +50,11 @@ def func():
     print(images,file = x)
     x.close()
 
-func()
+my_function()
 
+# Store the website data into database
 filename = "img.csv"
-def db_connection(query):
+def my_function1(query):
 
     conn = pymysql.connect(
         host='localhost',
@@ -75,4 +77,4 @@ with open(filename, 'r') as csvfile:
             query = "INSERT INTO instagram(Links) values(" + row + ");"
             print(query)
             
-            db_connection(query)
+            my_function1(query)

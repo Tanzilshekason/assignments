@@ -3,6 +3,7 @@ import pymysql
 import textwrap
 from fpdf import FPDF
 
+# implement twitter rest Api
 def function():
     client = tweepy.Client(bearer_token='AAAAAAAAAAAAAAAAAAAAAPbVcAEAAAAAhYb%2By%2F1NA40VX6K4GUc%2BK0ZtkOk%3DPHwBLHShnQhsFEoxmN6NH6yPG914LaPWPegLzibNHQkI70YIwJ')
 
@@ -23,14 +24,15 @@ def function():
         print(list)
 
         lines = list
-        with open('readme.txt', 'w') as f:
+        with open('tweets.txt', 'w') as f:
             for line in lines:
                 f.write(str(list))
                 f.write('\n')
 
 function()
 
-def db_connection(query):
+# Insert the data into database
+def my_function(query):
     mydb = pymysql.connect(
         host = "localhost",
         user = "root",
@@ -47,10 +49,9 @@ def db_connection(query):
     mydb.commit()
     
 
-    db_connection(query)
+    my_function(query)
 
-
-
+# Create the pdf of the data
 def text_to_pdf(text, filename):
     a4_width_mm = 210
     pt_to_mm = 0.35
@@ -77,11 +78,12 @@ def text_to_pdf(text, filename):
 
     pdf.output(filename, 'F')
 
-    input_filename = 'readme.txt'
+    input_filename = 'tweets.txt'
     output_filename = 'tweets.pdf'
     file = open(input_filename)
     text = file.read()
     file.close()
+
     text_to_pdf(text, output_filename)
 
 

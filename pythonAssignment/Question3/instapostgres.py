@@ -1,16 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 import time
 import os
 import wget
 import csv
-from email.mime import image
-import pymysql
+import psycopg2
 
-def func():
+# Parsing instagram website
+def my_function():
     driver =webdriver.Chrome('/home/neosoft/Documents/chromedriver_linux64/chromedriver')
     driver.get("https://www.instagram.com/")
     username = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,"input[name='username']")))
@@ -21,8 +21,6 @@ def func():
     username.send_keys("shekason_tanzil")
     password.send_keys("******")
     log_in = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,"button[type='submit']"))).click()
-
-
     not_now = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Not now')]"))).click()
     not_now2 = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Not Now')]"))).click()
 
@@ -42,30 +40,28 @@ def func():
     images = [image.get_attribute('src') for image in images]
     print(images)
 
-
-
-
     lines = []
-    with open('img.csv', 'w') as f:
+    with open('img1.csv', 'w') as f:
         for line in lines:
             f.write(line)
             f.write('\n')
 
-    x = open("img.csv",'a')
+    x = open("img1.csv",'a')
     print(images,file = x)
     x.close()
 
-func()
+my_function()
 
-filename = "img.csv"
-def db_connection(query):
-    
-    conn = pymysql.connect(
+# Store the website data into database
+filename = "img1.csv"
+def my_function1(query):
+
+    conn = psycopg2.connect(
         host='localhost',
-        user='root', 
-        password = "tanzil12345",
-        db='mysql',
-        )
+        user='postgres',
+        password='root',
+        database='postgres'
+    )
 
     cur = conn.cursor()
     cur.execute(query)
@@ -76,16 +72,9 @@ def db_connection(query):
 with open(filename, 'r') as csvfile:
     csvreader = csv.reader(csvfile)
     fields = next(csvreader)
-    for row in csvreader:
+    for row in fields:
         if len(row) > 0:
-            query = "INSERT INTO instagram1(links) VALUES  ('{}')".format(row[0])
+            query = "INSERT INTO Instagram(Links) values(" + row + ");"
             print(query)
-
-            db_connection(query)
-
-
-
-
-
-
-
+            
+        my_function1(query)
